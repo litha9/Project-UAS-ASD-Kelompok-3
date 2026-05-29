@@ -188,13 +188,13 @@ Nilai Akhir = (Tugas × 30%)
 ### 1. Compile Program
 
 ```bash
-javac SistemManajemenPenilaianMahasiswa.java
+javac SistemManajemenPenilianMahasiswa.java
 ```
 
 ### 2. Jalankan Program
 
 ```bash
-java SistemManajemenPenilaianMahasiswa
+java SistemManajemenPenilianMahasiswa
 ```
 
 ### 3. Login ke Sistem
