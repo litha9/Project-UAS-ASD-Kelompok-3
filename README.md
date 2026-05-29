@@ -177,51 +177,41 @@ Nilai Akhir = (Tugas × 30%)
 
 # 🚀 Cara Menjalankan Program
 
-## 1️⃣ Clone Repository
+## Prasyarat
 
-```bash
-git clone https://github.com/username/repository.git
-```
+- Java JDK 8 atau versi yang lebih baru sudah terinstall.
+- Terminal atau Command Prompt.
+- File source code program berada dalam satu folder project.
 
-## 2️⃣ Masuk ke Folder Project
+## Langkah-langkah
 
-```bash
-cd repository
-```
-
-## 3️⃣ Compile Program
+### 1. Compile Program
 
 ```bash
 javac SistemManajemenPenilaianMahasiswa.java
 ```
 
-## 4️⃣ Jalankan Program
+### 2. Jalankan Program
 
 ```bash
 java SistemManajemenPenilaianMahasiswa
 ```
 
----
+### 3. Login ke Sistem
 
-# 🔑 Akun Login Default
+Gunakan akun default yang tersedia:
 
-> ⚠️ Disarankan untuk mengganti password setelah pertama kali login.
-
-## Admin
-
+**Admin**
 ```text
 Username : admin
 Password : 123
 ```
 
-## User
-
+**User**
 ```text
-Username : Gunakan ID Mahasiswa
+Username : ID Mahasiswa
 Password : 123
 ```
-
----
 
 # 📂 Struktur Project
 
