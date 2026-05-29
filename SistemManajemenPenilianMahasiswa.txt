@@ -1,0 +1,1079 @@
+
+import java.io.File;
+    import java.io.PrintWriter;
+    import java.util.Scanner;
+
+    class Mahasiswa {
+        String id, nama, prodi;
+        double tugas, uts, uas, akhir;
+        String grade, status;
+        boolean aktif = true;
+        boolean dihapus = false;
+
+        Mahasiswa(String id, String nama, String prodi, double t, double u, double ua) {
+            this.id = id;
+            this.nama = nama;
+            this.prodi = prodi;
+            this.tugas = t;
+            this.uts = u;
+            this.uas = ua;
+            hitung();
+        }
+
+        void hitung() {
+            akhir = (tugas * 0.3) + (uts * 0.3) + (uas * 0.4);
+            if (akhir >= 85) grade = "A";
+            else if (akhir >= 75) grade = "B";
+            else if (akhir >= 65) grade = "C";
+            else if (akhir >= 50) grade = "D";
+            else grade = "E";
+            status = akhir >= 60 ? "LULUS" : "TIDAK LULUS";
+        }
+    }
+
+    public class SistemManajemenPenilianMahasiswa {
+        static Scanner in = new Scanner(System.in);
+        static Mahasiswa[] data = new Mahasiswa[200];
+        static int n = 0;
+        static String role = "";
+        static String loginID = "";
+
+        // ================= WARNA =================
+        static final String RESET = "\u001B[0m";
+        static final String MERAH = "\u001B[31m";
+        static final String HIJAU = "\u001B[32m";
+        static final String KUNING = "\u001B[33m";
+        static final String BIRU = "\u001B[34m";
+        static final String UNGU = "\u001B[35m";
+        static final String CYAN = "\u001B[36m";
+        static final String BOLD = "\u001B[1m";
+
+        // ================= ANIMASI =================
+        static void loading(String teks) {
+            System.out.print(CYAN + teks);
+            try {
+                for (int i = 0; i < 5; i++) {
+                    Thread.sleep(200);
+                    System.out.print(".");
+                }
+            } catch (Exception e) {}
+            System.out.println(RESET);
+        }
+        static void progressBar() {
+            System.out.print(KUNING + "Loading: ");
+            try {
+                for (int i = 0; i <= 20; i++) {
+                    System.out.print("█");
+                    Thread.sleep(20);
+                }
+            } catch (Exception e) {}
+            System.out.println(" 100%" + RESET);
+        }
+
+        // ================= TAMPIL =================
+    // ================= TAMPIL =================
+static void tampil() {
+
+    // ================= ADMIN =================
+    if (role.equals("admin")) {
+
+        System.out.println(
+        "\n╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════╗");
+
+        System.out.printf(
+        "║ %-108s ║\n",
+        "SISTEM NILAI MAHASISWA DATA AKTIF");
+
+        System.out.println(
+        "╠════╦════════╦════════════════════╦════════════════════╦══════╦══════╦══════╦════════╦═══════╦════════════════╣");
+
+        System.out.printf(
+        "║%-4s║%-8s║%-20s║%-20s║%-6s║%-6s║%-6s║%-8s║%-7s║%-15s ║\n",
+        "No","ID","Nama","Program Studi",
+        "Tugas","UTS","UAS","Akhir",
+        "Grade","Status");
+
+        System.out.println(
+        "╠════╬════════╬════════════════════╬════════════════════╬══════╬══════╬══════╬════════╬═══════╬════════════════╣");
+
+        int no = 1;
+
+        for (int i = 0; i < n; i++) {
+
+            if (data[i].aktif) {
+
+                String warna =
+                    data[i].status.equals("LULUS")
+                    ? HIJAU : MERAH;
+
+                String statusFix =
+                    String.format("%-15s",
+                    data[i].status);
+
+                String statusWarna =
+                    warna + statusFix + RESET;
+
+                System.out.printf(
+                "║%-4d║%-8s║%-20s║%-20s║%-6.1f║%-6.1f║%-6.1f║%-8.2f║%-7s║%s ║\n",
+                no++,
+                data[i].id,
+                data[i].nama,
+                data[i].prodi,
+                data[i].tugas,
+                data[i].uts,
+                data[i].uas,
+                data[i].akhir,
+                data[i].grade,
+                statusWarna);
+            }
+        }
+
+        System.out.println(
+        "╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════╝"
+        + RESET);
+    }
+
+    // ================= USER =================
+    else {
+
+        for (int i = 0; i < n; i++) {
+
+            if (data[i].aktif &&
+                data[i].id.equalsIgnoreCase(loginID)) {
+
+                System.out.println(
+                "\n╔══════════════════════════════════════════════╗");
+
+                System.out.printf(
+                "║ %-44s ║\n",
+                "DATA MAHASISWA");
+
+                System.out.println(
+                "╠══════════════════╦═══════════════════════════╣");
+
+                System.out.printf(
+                "║ %-16s ║ %-25s ║\n",
+                "ID",
+                data[i].id);
+
+                System.out.printf(
+                "║ %-16s ║ %-25s ║\n",
+                "Nama",
+                data[i].nama);
+
+                System.out.printf(
+                "║ %-16s ║ %-25s ║\n",
+                "Prodi",
+                data[i].prodi);
+
+                System.out.printf(
+                "║ %-16s ║ %-25.1f ║\n",
+                "Tugas",
+                data[i].tugas);
+
+                System.out.printf(
+                "║ %-16s ║ %-25.1f ║\n",
+                "UTS",
+                data[i].uts);
+
+                System.out.printf(
+                "║ %-16s ║ %-25.1f ║\n",
+                "UAS",
+                data[i].uas);
+
+                System.out.printf(
+                "║ %-16s ║ %-25.2f ║\n",
+                "Nilai Akhir",
+                data[i].akhir);
+
+                System.out.printf(
+                "║ %-16s ║ %-25s ║\n",
+                "Grade",
+                data[i].grade);
+
+                System.out.printf(
+                "║ %-16s ║ %-25s ║\n",
+                "Status",
+                data[i].status);
+
+                System.out.println(
+                "╚══════════════════╩═══════════════════════════╝");
+            }
+        }
+    }
+}
+    // ================= CEK ID =================
+static boolean cekID(String id) {
+
+    for (int i = 0; i < n; i++) {
+
+        if (data[i] != null &&
+            data[i].aktif &&
+            data[i].id.equalsIgnoreCase(id)) {
+
+            return true;
+        }
+    }
+
+    return false;
+}
+// ================= CEK ID AKTIF =================
+static int cariIndexID(String id) {
+
+    for (int i = 0; i < n; i++) {
+
+        if (data[i].aktif &&
+            data[i].id.equalsIgnoreCase(id)) {
+
+            return i;
+        }
+    }
+
+    return -1;
+}
+// ================= VALIDASI NILAI =================
+static double inputNilai(String namaNilai) {
+
+    double nilai;
+
+    while (true) {
+
+        System.out.print(namaNilai + ": ");
+
+        // cek apakah input angka
+        if (in.hasNextDouble()) {
+
+            nilai = in.nextDouble();
+
+            // cek range nilai
+            if (nilai >= 1 && nilai <= 100) {
+
+                return nilai;
+
+            } else {
+
+                System.out.println(MERAH +
+                    "Nilai harus range 1 - 100!"
+                    + RESET);
+            }
+
+        } else {
+
+            System.out.println(MERAH +
+                "Input harus angka!"
+                + RESET);
+
+            // membersihkan input salah
+            in.next();
+        }
+    }
+}
+// ================= VALIDASI ANGKA =================
+static int inputAngka(String teks, int min, int max) {
+
+    int angka;
+
+    while (true) {
+
+        System.out.print(teks);
+
+        if (in.hasNextInt()) {
+
+            angka = in.nextInt();
+            in.nextLine();
+
+            if (angka >= min && angka <= max) {
+
+                return angka;
+
+            } else {
+
+                System.out.println(MERAH +
+                    "Input harus " + min +
+                    " - " + max + "!"
+                    + RESET);
+            }
+
+        } else {
+
+            System.out.println(MERAH +
+                "Input harus angka!"
+                + RESET);
+
+            in.nextLine();
+        }
+    }
+}
+        // ================= TAMBAH =================
+  static void tambah() {
+
+    String terakhir = "-";
+
+for (int i = 0; i < n; i++) {
+
+    if (data[i] != null && data[i].aktif) {
+
+        if (terakhir.equals("-") ||
+            data[i].id.compareTo(terakhir) > 0) {
+
+            terakhir = data[i].id;
+        }
+    }
+}
+
+    System.out.println(CYAN +
+        "ID terakhir yang digunakan: "
+        + terakhir + RESET);
+
+    // WAJIB ADA
+    String id;
+
+    while (true) {
+
+        System.out.print("Masukkan ID: ");
+        id = in.nextLine();
+
+        if (cekID(id)) {
+
+            System.out.println(MERAH +
+                "ID sudah ada! Gunakan ID lain."
+                + RESET);
+
+        } else {
+
+            break;
+        }
+    }
+
+    System.out.print("Nama: ");
+    String nama = in.nextLine();
+
+    System.out.print("Prodi: ");
+    String prodi = in.nextLine();
+
+double t = inputNilai("Tugas");
+double u = inputNilai("UTS");
+double ua = inputNilai("UAS");
+    in.nextLine();
+
+    data[n++] = new Mahasiswa(
+        id, nama, prodi, t, u, ua
+    );
+
+    System.out.println(HIJAU +
+        "Data berhasil ditambahkan!"
+        + RESET);
+
+    simpan();
+}
+        // ================= EDIT =================
+    static void edit() {
+            System.out.print("ID: ");
+            String id = in.next();
+
+            int i = cariIndexID(id);
+            if (i != -1) {
+                if (data[i].id.equals(id)) {
+                    in.nextLine();
+
+                    System.out.print("Ubah Nama? (ya/tidak): ");
+                    if (in.nextLine().equalsIgnoreCase("ya")) {
+                        System.out.print("Nama baru: ");
+                        data[i].nama = in.nextLine();
+                    }
+
+                    System.out.print("Ubah Prodi? (ya/tidak): ");
+                    if (in.nextLine().equalsIgnoreCase("ya")) {
+                        System.out.print("Prodi baru: ");
+                        data[i].prodi = in.nextLine();
+                    }
+
+                    System.out.print("Ubah Nilai? (ya/tidak): ");
+
+                        if (in.nextLine().equalsIgnoreCase("ya")) {
+
+                        data[i].tugas = inputNilai("Tugas");
+                        data[i].uts = inputNilai("UTS");
+                        data[i].uas = inputNilai("UAS");
+
+                        in.nextLine();
+
+                        data[i].hitung();
+                    }
+                    simpan();
+                    return;
+                }
+            }
+            else {
+
+    System.out.println(MERAH +
+        "ID tidak ditemukan!"
+        + RESET);
+}
+            
+        }
+
+        // ================= HAPUS =================
+        static void hapus() {
+            System.out.print("ID: ");
+            String id = in.next();
+            int i = cariIndexID(id);
+            if (i != -1) {
+                if (data[i].id.equals(id)) {
+                    data[i].aktif = false;
+                    simpan();
+                    System.out.println("Data dihapus!");
+                    return;
+                }
+            }
+            System.out.println("Tidak ditemukan!");
+        }
+
+// ================= RESTORE =================
+static void restore() {
+
+    boolean ada = false;
+    int no = 1;
+
+    // Header (57 karakter total: ╔ + 55═ + ╗)
+    System.out.println(
+    "\n╔═══════════════════════════════════════════════════════╗");
+
+    System.out.printf(
+    "║ %-53s ║\n",
+    "DATA MAHASISWA TERHAPUS");
+
+    System.out.println(
+    "╠════╦════════╦════════════════════╦════════════════════╣");
+
+    System.out.printf(
+    "║%-4s║%-8s║%-20s║%-20s║\n",
+    "No", "ID", "Nama", "Program Studi");
+
+    System.out.println(
+    "╠════╬════════╬════════════════════╬════════════════════╣");
+
+    for (int i = 0; i < n; i++) {
+        if (!data[i].aktif) {
+            ada = true;
+            System.out.printf(
+            "║%-4d║%-8s║%-20s║%-20s║\n",
+            no++,
+            data[i].id,
+            data[i].nama,
+            data[i].prodi);
+        }
+    }
+
+    if (!ada) {
+        System.out.printf(
+        "║ %-53s ║\n",
+        "TIDAK ADA DATA TERHAPUS");
+    }
+
+    // Footer dengan ╩ sebagai pemisah kolom bawah
+    System.out.println(
+    "╚════╩════════╩════════════════════╩════════════════════╝");
+
+    if (!ada) return;
+
+    System.out.print("\nMasukkan ID yang ingin direstore: ");
+    String id = in.next();
+
+    for (int i = 0; i < n; i++) {
+        if (!data[i].aktif &&
+            data[i].id.equalsIgnoreCase(id)) {
+
+            data[i].aktif = true;
+            simpan();
+            System.out.println(HIJAU +
+                "Data berhasil direstore!" + RESET);
+            return;
+        }
+    }
+
+    System.out.println(MERAH +
+        "Data tidak ditemukan!" + RESET);
+}
+
+    // =========================== SEARCH ===========================
+    // =============== SEARCH NAMA ===============
+    static void sequentialSearchNama(String cari) {
+        boolean ketemu = false;
+        int no = 1;
+        System.out.println("\n┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐");
+        System.out.printf("│ %-106s  │\n", "HASIL PENCARIAN NAMA");
+        System.out.println("├────┬────────┬────────────────────┬────────────────────┬──────┬──────┬──────┬────────┬───────┬───────────────┤");
+
+        System.out.printf("│%-4s│%-8s│%-20s│%-20s│%-6s│%-6s│%-6s│%-8s│%-7s│%-15s│\n",
+                "No","ID","Nama","Program Studi","Tugas","UTS","UAS","Akhir","Grade","Status");
+
+        System.out.println("├────┼────────┼────────────────────┼────────────────────┼──────┼──────┼──────┼────────┼───────┼───────────────┤");
+
+        for (int i = 0; i < n; i++) {
+
+            if (data[i].aktif &&
+                data[i].nama.toLowerCase().contains(cari)) {
+
+                ketemu = true;
+
+                System.out.printf("│%-4d│%-8s│%-20s│%-20s│%-6.1f│%-6.1f│%-6.1f│%-8.2f│%-7s│%-15s│\n",
+                no++,
+                data[i].id,
+                data[i].nama,
+                data[i].prodi,
+                data[i].tugas,
+                data[i].uts,
+                data[i].uas,
+                data[i].akhir,
+                data[i].grade,
+                data[i].status);
+            }
+        }
+
+        if (!ketemu) {
+
+            System.out.println("│" + " ".repeat(45)
+                    + "DATA TIDAK DITEMUKAN"
+                    + " ".repeat(45) + "│");
+        }
+
+        System.out.println("└────┴────────┴────────────────────┴────────────────────┴──────┴──────┴──────┴────────┴───────┴───────────────┘");
+    }
+
+    static void cariNama() {
+
+        System.out.print("Nama: ");
+        String cari = in.nextLine().toLowerCase();
+
+        // urutkan dulu berdasarkan nama
+        quickSortNama(0, n - 1);
+
+        // lakukan searching
+        sequentialSearchNama(cari);
+    }
+
+    // =============== SEARCH ID ===============
+    static int binarySearchID(String id) {
+        int left = 0;
+        int right = n - 1;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            int compare = data[mid].id.compareTo(id);
+            // data ditemukan
+            if (compare == 0) {
+                return mid;
+            }
+            // cari ke kanan
+            else if (compare < 0) {
+                left = mid + 1;
+            }
+            // cari ke kiri
+            else {
+                right = mid - 1;
+            }
+        }
+        // tidak ditemukan
+        return -1;
+    }
+    static void cariID() {
+
+        System.out.print("ID: ");
+        String id = in.next();
+
+        // pastikan data terurut
+        sortIDSilent();
+        // cari dengan binary search
+        int index = binarySearchID(id);
+        System.out.println("\n┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐");
+        System.out.printf("│ %-106s  │\n", "HASIL PENCARIAN ID");
+        System.out.println("├────┬────────┬────────────────────┬────────────────────┬──────┬──────┬──────┬────────┬───────┬───────────────┤");
+        System.out.printf("│%-4s│%-8s│%-20s│%-20s│%-6s│%-6s│%-6s│%-8s│%-7s│%-15s│\n",
+                "No","ID","Nama","Program Studi","Tugas","UTS","UAS","Akhir","Grade","Status");
+
+        System.out.println("├────┼────────┼────────────────────┼────────────────────┼──────┼──────┼──────┼────────┼───────┼───────────────┤");
+        if (index != -1 && data[index].aktif) {
+
+            System.out.printf("│%-4d│%-8s│%-20s│%-20s│%-6.1f│%-6.1f│%-6.1f│%-8.2f│%-7s│%-15s│\n",
+                    1,
+            data[index].id,
+            data[index].nama,
+            data[index].prodi,
+            data[index].tugas,
+            data[index].uts,
+            data[index].uas,
+            data[index].akhir,
+            data[index].grade,
+            data[index].status);
+
+        } else {
+
+            System.out.println("│" + " ".repeat(45) + "DATA TIDAK DITEMUKAN" + " ".repeat(45) + "│");
+        }
+
+        System.out.println("└────┴────────┴────────────────────┴────────────────────┴──────┴──────┴──────┴────────┴───────┴───────────────┘");
+    }
+
+    // =============== SEARCH PRODI ===============
+    static void sequentialSearchProdi(String cari) {
+        boolean ketemu = false;
+        int no = 1;
+        System.out.println("\n┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐");
+        System.out.printf("│ %-106s  │\n", "HASIL PENCARIAN PRODI");
+        System.out.println("├────┬────────┬────────────────────┬────────────────────┬──────┬──────┬──────┬────────┬───────┬───────────────┤");
+
+        System.out.printf("│%-4s│%-8s│%-20s│%-20s│%-6s│%-6s│%-6s│%-8s│%-7s│%-15s│\n",
+                "No","ID","Nama","Program Studi","Tugas","UTS","UAS","Akhir","Grade","Status");
+
+        System.out.println("├────┼────────┼────────────────────┼────────────────────┼──────┼──────┼──────┼────────┼───────┼───────────────┤");
+
+        for (int i = 0; i < n; i++) {
+            if (data[i].aktif && data[i].prodi.equalsIgnoreCase(cari)) {
+                ketemu = true;
+                System.out.printf("│%-4d│%-8s│%-20s│%-20s│%-6.1f│%-6.1f│%-6.1f│%-8.2f│%-7s│%-15s│\n",
+                no++,
+                data[i].id,
+                data[i].nama,
+                data[i].prodi,
+                data[i].tugas,
+                data[i].uts,
+                data[i].uas,
+                data[i].akhir,
+                data[i].grade,
+                data[i].status);
+            }
+        }
+        if (!ketemu) {
+            System.out.println("│" + " ".repeat(45) + "DATA TIDAK DITEMUKAN" + " ".repeat(45) + "│");
+        }
+        System.out.println("└────┴────────┴────────────────────┴────────────────────┴──────┴──────┴──────┴────────┴───────┴───────────────┘");
+    }
+    static void cariProdi() {
+
+    // array menyimpan prodi unik
+    String[] daftarProdi = new String[100];
+    int jumlahProdi = 0;
+
+    // ambil semua prodi unik
+    for (int i = 0; i < n; i++) {
+
+        if (data[i].aktif) {
+
+            boolean ada = false;
+
+            for (int j = 0; j < jumlahProdi; j++) {
+
+                if (daftarProdi[j].equalsIgnoreCase(data[i].prodi)) {
+
+                    ada = true;
+                    break;
+                }
+            }
+
+            if (!ada) {
+
+                daftarProdi[jumlahProdi++] = data[i].prodi;
+            }
+        }
+    }
+
+    // tampilkan daftar prodi
+    System.out.println("Pilih Prodi:");
+
+    for (int i = 0; i < jumlahProdi; i++) {
+
+        System.out.println((i + 1) + ". " + daftarProdi[i]);
+    }
+
+    System.out.print("Pilihan: ");
+    int pilih = inputAngka(
+    "Pilihan: ", 1, jumlahProdi
+);
+
+    // validasi
+    if (pilih < 1 || pilih > jumlahProdi) {
+
+        System.out.println("Pilihan tidak valid!");
+        return;
+    }
+
+    String cari = daftarProdi[pilih - 1];
+
+    // Urutkan nama dulu
+    quickSortNama(0, n - 1);
+
+    // Searching prodi
+    sequentialSearchProdi(cari);
+}
+
+    // =========================== SORT ===========================
+    // ================= SORT ID =================
+    static void quickSortID(int low, int high) {
+        if (low < high) {
+            int pi = partitionID(low, high);
+            quickSortID(low, pi - 1);
+            quickSortID(pi + 1, high);
+        }
+    }
+    static int partitionID(int low, int high) {
+        String pivot = data[high].id;
+        int i = low - 1;
+        for (int j = low; j < high; j++) {
+            if (data[j].id.compareTo(pivot) < 0) {
+                i++;
+                Mahasiswa temp = data[i];
+                data[i] = data[j];
+                data[j] = temp;
+            }
+        }
+        Mahasiswa temp = data[i + 1];
+        data[i + 1] = data[high];
+        data[high] = temp;
+        return i + 1;
+    }
+    static void sortID() {
+        quickSortID(0, n - 1);
+        tampil();
+    }
+
+    // ================= SORT NAMA =================
+    static void quickSortNama(int low, int high) {
+        if (low < high) {
+            int pi = partitionNama(low, high);
+            quickSortNama(low, pi - 1);
+            quickSortNama(pi + 1, high);
+        }
+    }
+    static int partitionNama(int low, int high) {
+        String pivot = data[high].nama.toLowerCase();
+        int i = low - 1;
+        for (int j = low; j < high; j++) {
+            if (data[j].nama.toLowerCase().compareTo(pivot) < 0) {
+                i++;
+                Mahasiswa temp = data[i];
+                data[i] = data[j];
+                data[j] = temp;
+            }
+        }
+        Mahasiswa temp = data[i + 1];
+        data[i + 1] = data[high];
+        data[high] = temp;
+        return i + 1;
+    }
+    static void sortNama() {
+        quickSortNama(0, n - 1);
+        tampil();
+    }
+
+    // ================= SORT NILAI =================
+    static void quickSortNilai(int low, int high) {
+        if (low < high) {
+            int pi = partition(low, high);
+            quickSortNilai(low, pi - 1);
+            quickSortNilai(pi + 1, high);
+        }
+    }
+    static int partition(int low, int high) {
+        double pivot = data[high].akhir;
+        int i = low - 1;
+        for (int j = low; j < high; j++) {
+            if (data[j].akhir > pivot) {
+                i++;
+                Mahasiswa temp = data[i];
+                data[i] = data[j];
+                data[j] = temp;
+            }
+        }
+        Mahasiswa temp = data[i + 1];
+        data[i + 1] = data[high];
+        data[high] = temp;
+
+        return i + 1;
+    }
+    static void sortNilai() {
+        quickSortNilai(0, n - 1);
+        tampil();
+    }
+
+        // ================= STATISTIK =================
+    static void statistik() {
+        int total = 0, lulus = 0, tidak = 0;
+        int A=0,B=0,C=0,D=0,E=0;
+        double sum = 0;
+        for (int i = 0; i < n; i++) {
+            if (data[i].aktif) {
+                total++;
+                sum += data[i].akhir;
+                if (data[i].status.equals("LULUS")) lulus++;
+                else tidak++;
+                switch (data[i].grade) {
+                    case "A" -> A++;
+                    case "B" -> B++;
+                    case "C" -> C++;
+                    case "D" -> D++;
+                    case "E" -> E++;
+                }
+            }
+        }
+        double rata = (total == 0) ? 0 : sum / total;
+        double persen = (total == 0) ? 0 : (lulus * 100.0) / total;
+
+        System.out.println("\n┌───────────────────────────────┐");
+        System.out.printf ("│ %-29s │\n", "STATISTIK MAHASISWA");
+        System.out.println("├───────────────────────────────┤");
+        System.out.printf ("│ Total Mahasiswa      : %-7d│\n", total);
+        System.out.printf ("│ Jumlah Lulus         : %-7d│\n", lulus);
+        System.out.printf ("│ Jumlah Tidak Lulus   : %-7d│\n", tidak);
+        System.out.printf ("│ Rata-Rata            : %-7.2f│\n", rata);
+        System.out.printf ("│ Persentase Lulus     : %-6.2f%%│\n", persen);
+        System.out.println("└───────────────────────────────┘");
+        System.out.println("\n┌───────────────────────────────┐");
+        System.out.printf ("│ Distribusi Nilai              │\n");
+        System.out.println("├───────────────────────────────┤");
+        System.out.printf ("│ A : %-24d  │\n", A);
+        System.out.printf ("│ B : %-24d  │\n", B);
+        System.out.printf ("│ C : %-24d  │\n", C);
+        System.out.printf ("│ D : %-24d  │\n", D);
+        System.out.printf ("│ E : %-24d  │\n", E);
+        System.out.println("└───────────────────────────────┘");
+    }
+
+        // ================= SIMPAN =================
+    static void sortIDSilent() {
+        quickSortID(0, n - 1);
+    }
+    static void simpan() {
+
+    sortIDSilent();
+
+    try {
+
+        PrintWriter w =
+            new PrintWriter("data.txt");
+
+        for (int i = 0; i < n; i++) {
+
+            w.println(
+
+                data[i].id + "," +
+                data[i].nama + "," +
+                data[i].prodi + "," +
+                data[i].tugas + "," +
+                data[i].uts + "," +
+                data[i].uas + "," +
+                data[i].aktif
+            );
+        }
+
+        w.close();
+
+        System.out.println(
+            "Auto save berhasil!");
+
+    } catch (Exception e) {
+
+        System.out.println(
+            "Gagal auto save!");
+    }
+}
+    static void loadData() {
+        try {
+            File file = new File("data.txt");
+            if (!file.exists()) return;
+            Scanner baca = new Scanner(file);
+            while (baca.hasNextLine()) {
+                String[] d = baca.nextLine().split(",");
+
+                data[n] = new Mahasiswa(
+                    d[0],
+                    d[1],
+                    d[2],
+                    Double.parseDouble(d[3]),
+                    Double.parseDouble(d[4]),
+                    Double.parseDouble(d[5])
+                );
+                data[n].aktif =
+                    Boolean.parseBoolean(d[6]);
+
+                n++;
+            }
+            baca.close();
+            System.out.println("Data berhasil dimuat!");
+        } catch (Exception e) {
+            System.out.println("Gagal load data!");
+        }
+    }
+// ================= LOGIN =================
+static void login() {
+
+    while (true) {
+
+        System.out.println();
+
+        System.out.println(CYAN + BOLD);
+        System.out.println("╔══════════════════════════════╗");
+        System.out.printf ("║ %-28s ║\n", "LOGIN SISTEM");
+        System.out.println("╚══════════════════════════════╝" + RESET);
+
+        // INPUT USERNAME
+        System.out.print(KUNING + "Username / ID : " + RESET);
+        String username = in.nextLine();
+
+        // INPUT PASSWORD
+        System.out.print(KUNING + "Password      : " + RESET);
+        String password = in.nextLine();
+
+        // ================= LOGIN ADMIN =================
+        if (username.equals("admin") &&
+            password.equals("123")) {
+
+            role = "admin";
+
+            System.out.println(HIJAU +
+                "\nLogin Admin Berhasil!"
+                + RESET);
+
+            break;
+        }
+
+        // ================= LOGIN USER =================
+        else {
+
+            boolean ketemu = false;
+
+            for (int i = 0; i < n; i++) {
+
+                if (data[i].aktif &&
+                    data[i].id.equalsIgnoreCase(username) &&
+                    password.equals("123")) {
+
+                    role = "user";
+                    loginID = data[i].id;
+                    ketemu = true;
+
+  System.out.println(HIJAU +
+    "\nLogin User Berhasil!"
+    + RESET);
+
+// tampilkan data diri
+tampil();
+
+// opsi keluar
+System.out.println(CYAN +
+    "\n1. Logout");
+System.out.println("0. Keluar" +
+    RESET);
+
+int pilih = inputAngka(
+    "Pilih menu: ", 0, 1
+);
+
+// logout
+if (pilih == 1) {
+
+    logout();
+}
+
+// keluar
+else {
+
+    System.out.println(HIJAU +
+        "\nTerima kasih telah menggunakan sistem"
+        + RESET);
+
+    System.exit(0);
+}
+                }
+            }
+
+            if (ketemu) {
+                break;
+            }
+
+            // ================= LOGIN GAGAL =================
+            System.out.println(MERAH +
+                "\nUsername / ID atau Password Salah!"
+                + RESET);
+
+            loading("Mengulang login");
+        }
+    }
+}
+// ================= LOGOUT =================
+static void logout() {
+    System.out.println(KUNING +
+        "\nSession berakhir..." + RESET);
+    // animasi loading
+    loading("Mengalihkan ke halaman login");
+    // reset role
+    role = "";
+    loginID = "";
+    // kembali login
+    login();
+}
+        // ================= MAIN =================
+        public static void main(String[] args) {
+        loading("Memulai Sistem");
+        progressBar();
+        loadData();
+        login();
+        int p;
+            do {
+        System.out.println(CYAN + BOLD +"\n┌───────────────────────────────────────────────┐");
+        System.out.printf ("│ %-45s │\n", " SISTEM MANAJEMEN NILAI MAHASISWA ");
+        System.out.println("├───────────────────────────────────────────────┤");
+if (role.equals("admin")) {
+    System.out.printf ("│ %-3s %-40s  │\n", "1.",  "Tambah Data Mahasiswa");
+    System.out.printf ("│ %-3s %-40s  │\n", "2.",  "Tampilkan Data");
+    System.out.printf ("│ %-3s %-40s  │\n", "3.",  "Edit Data");
+    System.out.printf ("│ %-3s %-40s  │\n", "4.",  "Hapus Data");
+    System.out.printf ("│ %-3s %-40s  │\n", "5.",  "Cari Nama");
+    System.out.printf ("│ %-3s %-40s  │\n", "6.",  "Cari ID");
+    System.out.printf ("│ %-3s %-40s  │\n", "7.",  "Cari Prodi");
+    System.out.printf ("│ %-3s %-40s  │\n", "8.",  "Sort ID");
+    System.out.printf ("│ %-3s %-40s  │\n", "9.",  "Sort Nama");
+    System.out.printf ("│ %-3s %-40s  │\n", "10.", "Sort Nilai");
+    System.out.printf ("│ %-3s %-40s  │\n", "11.", "Statistik");
+    System.out.printf ("│ %-3s %-40s  │\n", "12.",  "Restore Data");
+    System.out.printf ("│ %-3s %-40s  │\n", "13.", "Logout");
+}
+        System.out.println("├───────────────────────────────────────────────┤");
+        System.out.printf ("│ %-3s %-40s  │\n", "0.",  "Keluar");
+        System.out.println("└───────────────────────────────────────────────┘" + RESET);
+
+        System.out.println(CYAN + "Masukkan angka sesuai menu yang dipilih" + RESET);
+    p = inputAngka("Pilih menu: ", 0, 13);
+
+     // ================= MENU ADMIN =================
+if (role.equals("admin")) {
+
+    switch (p) {
+        case 1 -> tambah();
+        case 2 -> tampil();
+        case 3 -> edit();
+        case 4 -> hapus();
+        case 5 -> cariNama();
+        case 6 -> cariID();
+        case 7 -> cariProdi();
+        case 8 -> sortID();
+        case 9 -> sortNama();
+        case 10 -> sortNilai();
+        case 11 -> statistik();
+        case 12 -> restore();
+        case 13 -> {
+            logout();
+        }
+        case 0 -> {
+            System.out.println(HIJAU +
+                "\nTerima kasih telah menggunakan sistem"
+                + RESET);
+        }
+        default -> {
+            System.out.println(MERAH +
+                "Menu tidak tersedia!" + RESET);
+        }
+    }
+}
+            } while (p != 0);
+        }
+    }
