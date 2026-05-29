@@ -127,7 +127,7 @@ Untuk meningkatkan pengalaman pengguna, program dilengkapi dengan:
 
 # 🏗️ Struktur Data
 
-Program menggunakan struktur data sederhana berbasis array dan object.
+Program menggunakan struktur data sederhana berbasis array. 
 
 ### Implementasi:
 - Array of Object
@@ -211,66 +211,19 @@ Password : 123
 
 ---
 
-# 🔑 Akun Login Default
-
-> ⚠️ Disarankan untuk mengganti password setelah pertama kali login.
-
-## Admin
-
-```text
-Username : admin
-Password : 123
-```
-
-## User
-
-```text
-Username : Gunakan ID Mahasiswa
-Password : 123
-```
-
----
-
-# 📂 Struktur Project
-
-```text
-📦 Sistem-Manajemen-Nilai-Mahasiswa
-│
-├── SistemManajemenPenilaianMahasiswa.java
-├── data.txt
-├── README.md
-└── .gitignore
-```
-
----
 
 # 📄 Deskripsi File
 
 | File | Fungsi |
 |--------|----------|
-| `SistemManajemenPenilaianMahasiswa.java` | Source code utama program |
+| `SistemManajemenPenilianMahasiswa.java` | Source code utama program |
 | `data.txt` | Penyimpanan data mahasiswa |
 | `README.md` | Dokumentasi proyek |
-| `.gitignore` | Konfigurasi file yang diabaikan Git |
+| `Laporan Akhir Sistem Manajemen Nilai Mahasiswa.pdf` | Dokumen laporan akhir |
 
 ---
 
-# 🧠 Konsep Pemrograman yang Diterapkan
-
-Program ini mengimplementasikan berbagai konsep dasar dalam pemrograman Java:
-
-- Object Oriented Programming (OOP)
-- Encapsulation
-- Array of Object
-- Searching Algorithm
-- Sorting Algorithm
-- File Handling
-- Validasi Input
-- Percabangan (Selection)
-- Perulangan (Looping)
-- Exception Handling
-- Statistik Data Sederhana
-
+# 🧠 
 ---
 
 # 🖼️ Tampilan Program
@@ -320,7 +273,6 @@ Proyek ini dibuat sebagai implementasi materi:
 - Algoritma Searching
 - Algoritma Sorting
 - Object Oriented Programming
-
 
 ---
 
