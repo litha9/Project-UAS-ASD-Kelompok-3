@@ -219,7 +219,7 @@ Password : 123
 | `SistemManajemenPenilianMahasiswa.java` | Source code utama program |
 | `data.txt` | Penyimpanan data mahasiswa |
 | `README.md` | Dokumentasi proyek |
-| `Laporan Akhir Sistem Manajemen Nilai Mahasiswa.pdf` | Dokumen laporan akhir |
+| `Laporan Akhir Praktikum Algoritma & Struktur Data K3.pdf` | Dokumen laporan akhir |
 
 ---
 
