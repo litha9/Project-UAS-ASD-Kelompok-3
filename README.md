@@ -2,10 +2,6 @@
 
 > Aplikasi berbasis **Java Console** untuk mengelola data nilai mahasiswa secara cepat, terstruktur, dan interaktif dengan fitur autentikasi multi-role, CRUD data, searching, sorting, statistik akademik, serta penyimpanan file otomatis.
 
-![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![Platform](https://img.shields.io/badge/Platform-Console-blue?style=for-the-badge)
-![OOP](https://img.shields.io/badge/Concept-OOP-success?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)
 
 ---
 
@@ -213,6 +209,28 @@ Username : ID Mahasiswa
 Password : 123
 ```
 
+---
+
+# 🔑 Akun Login Default
+
+> ⚠️ Disarankan untuk mengganti password setelah pertama kali login.
+
+## Admin
+
+```text
+Username : admin
+Password : 123
+```
+
+## User
+
+```text
+Username : Gunakan ID Mahasiswa
+Password : 123
+```
+
+---
+
 # 📂 Struktur Project
 
 ```text
@@ -220,104 +238,57 @@ Password : 123
 │
 ├── SistemManajemenPenilaianMahasiswa.java
 ├── data.txt
-├
-| Cari ID | Binary Search |
+├── README.md
+└── .gitignore
+```
 
-| Cari Prodi | Sequential Search |
+---
 
-| Sort ID | Quick Sort |
-
-| Sort Nama | Quick Sort |
-
-| Sort Nilai | Quick Sort |
-
-
-# Struktur Data
-
-Program menggunakan:
-
-- Array of Object
-- Class `Mahasiswa`
-- Array `Mahasiswa[200]`
-
-# Perhitungan Nilai
-
-Nilai akhir dihitung menggunakan rumus:
-
-Nilai Akhir = (Tugas × 0.3) + (UTS × 0.3) + (UAS × 0.4)
-
-Grade:
-
-| Nilai | Grade |
-
-| ≥ 85 | A |
-
-| ≥ 75 | B |
-
-| ≥ 65 | C |
-
-| ≥ 50 | D |
-
-| < 50 | E |
-
-Status:
-- LULUS → nilai akhir ≥ 60
-- TIDAK LULUS → nilai akhir < 60
-
-#  Cara Menjalankan Program
-
-## 1. Compile Program
-
-javac SistemManajemenPenilianMahasiswa.java
-
-## 2. Jalankan Program
-
-java SistemManajemenPenilianMahasiswa
-
-# Login Default
-
-## Admin
-Username : admin
-Password : 123
-
-
-## User
-Username : gunakan ID mahasiswa
-Password : 123
-
-# File Project
+# 📄 Deskripsi File
 
 | File | Fungsi |
-
-| `SistemManajemenPenilianMahasiswa.java` | Source code utama |
-
+|--------|----------|
+| `SistemManajemenPenilaianMahasiswa.java` | Source code utama program |
 | `data.txt` | Penyimpanan data mahasiswa |
+| `README.md` | Dokumentasi proyek |
+| `.gitignore` | Konfigurasi file yang diabaikan Git |
 
-| `README.md` | Dokumentasi project |
+---
 
-# Konsep Pemrograman yang Digunakan
+# 🧠 Konsep Pemrograman yang Diterapkan
+
+Program ini mengimplementasikan berbagai konsep dasar dalam pemrograman Java:
 
 - Object Oriented Programming (OOP)
-- Array
+- Encapsulation
+- Array of Object
 - Searching Algorithm
 - Sorting Algorithm
 - File Handling
-- Percabangan
-- Perulangan
 - Validasi Input
-- Statistik Sederhana
+- Percabangan (Selection)
+- Perulangan (Looping)
+- Exception Handling
+- Statistik Data Sederhana
 
-# Tampilan Program
+---
+
+# 🖼️ Tampilan Program
 
 ## Menu Utama
+
 ```text
+====================================
+   SISTEM MANAJEMEN NILAI MAHASISWA
+====================================
+
 1. Tambah Data Mahasiswa
 2. Tampilkan Data
 3. Edit Data
 4. Hapus Data
 5. Cari Nama
 6. Cari ID
-7. Cari Prodi
+7. Cari Program Studi
 8. Sort ID
 9. Sort Nama
 10. Sort Nilai
@@ -325,3 +296,37 @@ Password : 123
 12. Restore Data
 13. Logout
 0. Keluar
+
+Pilih Menu :
+```
+
+---
+
+# 👨‍💻 Tim Pengembang
+
+### Kelompok Proyek UAS
+
+- **Firman Hidayat**
+- **Talitha Nailal Husna**
+- **Radhin Ramadhan Hendestian**
+
+---
+
+## ⭐ Tujuan Pembelajaran
+
+Proyek ini dibuat sebagai implementasi materi:
+
+- Struktur Data
+- Algoritma Searching
+- Algoritma Sorting
+- Object Oriented Programming
+
+
+---
+
+<div align="center">
+
+### 🎓 Sistem Manajemen Nilai Mahasiswa
+*Mengelola data akademik secara cepat, terstruktur, dan efisien.*
+
+</div>
